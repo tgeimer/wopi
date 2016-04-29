@@ -1,0 +1,81 @@
+#!/bin/bash
+
+############################################################################
+# File:         .wopirc
+# Author:       Thomas Geimer
+# Purpose:      This script sets environment variables and functions
+#               used in other WOPi scripts.
+#               This script is called by other WOPi scripts in the beginning.
+#
+# Prerequisites:
+#
+############################################################################
+
+export HOME_DIR=/home/pi
+export WOPI_DIR=$HOME_DIR/wopi
+export BOOT_CONFIG=/boot/config.txt
+export ETC_MODULES=/etc/modules
+export WOPI_LOG_DIR=$WOPI_DIR/log
+export WOPI_LOG_INSTALL=$WOPI_LOG_DIR/install.log
+export WOPI_TMP_DIR=$WOPI_LOG_DIR/tmp
+export WOPI_BIN_DIR=$WOPI_DIR/bin
+export WOPI_CONF=$WOPI_DIR/conf/wopi.conf
+export PATH=$PATH:$WOPI_BIN_DIR
+
+export WOPI_SCRIPT_BUTTON=$WOPI_BIN_DIR/button.py
+
+export FINAL_RC=0;
+
+# Colors:
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 6)
+NC=$(tput sgr0) # reset color
+
+# function to check the return code of a command:
+checkrc()
+{
+  RC=$1
+  if [ $RC -eq 0 ]; then
+    RESULT="[${GREEN}OK${NC}]";
+  else
+    RESULT="[${RED}ERROR${NC}] RC=$RC";
+    FINAL_RC=$(expr $FINAL_RC + 1)
+  fi
+}
+export -f checkrc
+
+###################################
+#
+# WOPi configuration
+# Here you can customize your WOPi
+#
+###################################
+
+# GPIO-PINS
+export GPIO_LED=29
+
+# CURL options:
+export CURL_URL=http://yourcomain.com/subdir/receive.php
+export CURL_TOKEN=FooBar123
+
+# FTP credentials
+export FTP_USER=myFTPuser
+export FTP_PASS=PutPasswordHere
+
+# DS1820 Temperature Sensors:
+export SENSOR_ID_1=10-000802b5bd51
+export SENSOR_ID_2=10-000802e793d2
+# continue to
+export SENSOR_NAME_1=Sensor1
+export SENSOR_NAME_2=Sensor2
+
+# ustream options:
+export USTREAM_FPS=20
+export USTREAM_WIDTH=800
+export USTREAM_HEIGHT=600
+export USTREAM_URL=rtmp://1.12345678.fme.ustream.tv/ustreamVideo/12345678
+export USTREAM_KEY=34digitKey
+export USTREAM_TITLE="This is my title"
+export USTREAM_PROCESS="wopistream"
