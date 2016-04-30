@@ -3,7 +3,7 @@
 ############################################################################
 # File:         install.sh
 # Author:       Thomas Geimer
-# Version:   0.8 (2016-04-23)
+# Version:      0.9.1 (2016-04-30)
 # Purpose:      This script will configure a newly-imaged Raspberry Pi running
 #               Raspbian Wheezy (tested version 2015-02-16) with the software
 #               necessary to turn it into a WOPi :-)
@@ -16,22 +16,21 @@
 # 4. set locale, keyboard layout, etc
 # 6. you have executed "sudo rpi-update"
 # 7. you have executed "sudo apt-get update && sudo apt-get upgrade -y"
-#    to have your raspberry pi up to date and the current repositories
+#    to have your Raspberry Pi up to date and use the current repositories
 #
 ############################################################################
 
 # load WOPi environment:
 HOME_DIR=/home/pi
-WOPIRC=$HOME_DIR/wopi/conf/.wopirc
+WOPI_DIR=$(dirname $(readlink -f "$0"))
+WOPIRC=$WOPI_DIR/conf/.wopirc
 # Variable definitions:
 REBOOT_NECESSARY=0
-PROJECT_EXISTS=0;
 # Colors:
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
 BLUE=$(tput setaf 6)
 NC=$(tput sgr0) # reset color
-
 
 if [ -f $WOPIRC ]; then
   . $WOPIRC
@@ -39,7 +38,6 @@ else
   printf "$REDERROR$NC: WOPi environment \"$WOPIRC\" could not be loaded.\n"
   exit 1;
 fi
-
 
 on_die() {
   echo "Interrupting..."
