@@ -19,4 +19,25 @@ Use your **WOPi** to:
 
 I want everybody to be able to realize a wildlife observation project without the need of having to dive into the depths of the technical realization - including having to administer the Pi via CLI over an ssh connection to install and configure the necessary software. This is how WOPi came to be. One install script is everything a "non-technical" user should have to invoke to have a fully running Wildlife Observation Platform.
 
+##Installation##
+The installation procedure described here assumes that you use a current Raspbian image. Here are the steps to get WOPi up and running.
+Log in to your pi as user ```pi```. You are in your home directory. A default WOPi installation assumes all WOPi related files to reside there.
+
+* get the contents of this repository:
+```shell
+git clone https://github.com/tgeimer/wopi.git wopi
+```
+* make the install script executable:
+```shell
+chmod a+x wopi/install.sh
+```
+* execute the installation script with root privileges:
+```shell
+sudo wopi/install.sh
+```
+* wait until everything has installed and check the installation log:
+```shell
+cat wopi/log/install.log
+```
+
 Check back soon to see the progress.
